@@ -17,18 +17,12 @@ config({
 connectDB();
 
 //using Middlewares
-const allowedOrigins = ['http://localhost:5173'];
-
+app.use(express.json());
+app.use(cookieParser())
 app.use(cors({
-    origin: (origin, callback) => {
-        if (allowedOrigins.includes(origin) || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: 'http://localhost:5173/', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
+    credentials: true 
 }));
 
 
