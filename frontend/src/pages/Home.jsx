@@ -11,7 +11,6 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  
   const { isAuthenticated } = useContext(Context);
 
   const updateHandler = async (id) => {

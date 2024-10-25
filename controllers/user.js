@@ -49,7 +49,10 @@ export const register=async(req,res)=>{
       email,
       password:hashedpassword
     })
-    setCookie(User,res,"User Created Succesdsfully",201)
+    return res.status(201).json({
+      success:true,
+      message:"User created successfully",
+    })
     } catch (error) {
       console.log(error)
         res.status(500).json({

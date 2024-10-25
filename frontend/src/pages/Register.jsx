@@ -8,6 +8,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [success,setSuccess]=useState(false);
   const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
     useContext(Context);
 
@@ -31,16 +32,15 @@ const Register = () => {
       );
 
       toast.success(data.message);
-      setIsAuthenticated(true);
+      setSuccess(true);
       setLoading(false);
     } catch (error) {
       toast.error(error.response.data.message);
-      setIsAuthenticated(false);
       setLoading(false);
     }
   };
 
-  if (isAuthenticated) return <Navigate to={"/"} />;
+  if (success) return <Navigate to={"/login"} />;
 
   return (
     <div className="login">
