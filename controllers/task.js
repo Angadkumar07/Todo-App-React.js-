@@ -50,7 +50,7 @@ export const updateMyTask=async(req,res)=>{
         }else{
             task.isSelected=!task.isSelected;
             await task.save();
-            res.status().json({
+            res.status(200).json({
                 success:true,
                 message:"Task Updated successfully"
         })

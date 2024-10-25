@@ -11,9 +11,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [refresh, setRefresh] = useState(false);
-
-  console.log(tasks,"tu")
-
+  
   const { isAuthenticated } = useContext(Context);
 
   const updateHandler = async (id) => {
@@ -80,7 +78,6 @@ const Home = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data, "Response Data"); 
         setTasks(res.data.data); 
       })
       .catch((e) => {
@@ -88,7 +85,7 @@ const Home = () => {
         toast.error(e.response?.data?.message || "Failed to fetch tasks");
         setTasks([]); 
       });
-  }, []);
+  }, [refresh]);
   
 
   if (!isAuthenticated) return <Navigate to={"/login"} />;
@@ -120,9 +117,9 @@ const Home = () => {
         </section>
       </div>
 
-      <section className="todosContainer">
-    {tasks.length > 0 ? (
-    tasks.map((task) => (
+    <section className="todosContainer">
+     {tasks.length > 0 ? (
+     tasks.map((task) => (
       <TodoItem
         title={task.title}
         description={task.description}
