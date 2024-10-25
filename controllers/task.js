@@ -21,23 +21,39 @@ export const newTask=async(req,res)=>{
         })
     }
 }
-export const getMyTask=async(req,res)=>{
+export const getMyTask = async (req, res) => {
     try {
-        const {id}=req.user;
-        const task=await Task.find({user:id})
+        if (!req.user) {
+            return res.status(401).json({
+                success: false,
+                message: "User not authenticated. Please log in.",
+            });
+        }
+
+        const { id } = req.user; 
+        const tasks = await Task.find({ user: id }); 
+        
+        if (!tasks.length) {
+            return res.status(404).json({
+                success: true,
+                message: "No tasks found for the user.",
+                data: [],
+            });
+        }
+
         res.status(200).json({
-            success:true, 
-            message:"All tasks fetched Successfully",
-            data:task
-        })
+            success: true,
+            message: "All tasks fetched successfully.",
+            data: tasks,
+        });
 
     } catch (error) {
         res.status(500).json({
-            success:false,
-            message:error.message
-        })
+            success: false,
+            message: error.message,
+        });
     }
-}
+};
 
 export const updateMyTask=async(req,res)=>{
     try {
